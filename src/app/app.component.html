@@ -1,17 +1,17 @@
 <button 
 class="fs-60 m-20 p-50"
-(click)="incriment()"
+(click)="increment()"
 >+1</button>
 <button class="fs-60 m-20 p-50"
 (click)="decriment()"
-[disabled]="inDesablet"
+[disabled]="connotDesablet$ | async"
 >-1</button>
 <button class="fs-60 m-20 p-50"
-(click)="Zero()"
-[disabled]="inDesablet"
+(click)="zero()"
+[disabled]="connotDesablet$ | async"
 >0</button>
 
-<p class="fs-60">Counter = {{counter}}</p>
-<p *ngIf="updateAt" class="fs-60">
-обновлялось: {{updateAt | date: 'HH:mm:ss dd/MM/yyyy`'}}
+<p class="fs-60">Counter = {{count$ | async}}</p>
+<p *ngIf="updatedAt$ | async" class="fs-60">
+обновлялось: {{updatedAt$ | async | date: 'HH:mm:ss dd/MM/yyyy`'}}
 </p>

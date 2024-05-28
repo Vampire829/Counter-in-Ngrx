@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { counterSelector, decriment, increment, updateAtSelector, zero} from './reducers/counter';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -6,24 +9,27 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  counter: number = 0
-  updateAt?: number
- public get inDesablet(): boolean{
-  return  this.counter <= 0
- }
+  count$=this.store.select(counterSelector)
 
+  constructor(private store: Store){}
 
-public incriment(): void{
-  this.updateAt= Date.now()
-   this.counter++
+  public connotDesablet$=this.count$.pipe(map(n=> n<=0))
+   public updatedAt$ = this.store.select(updateAtSelector)
+
+public increment(){
+  this.store.dispatch(increment())
+
+   
 }
 public decriment(): void{
-  this.updateAt= Date.now()
-  this.counter--
+  this.store.dispatch(decriment())
+
 }
-public Zero():void{
-  this.updateAt= Date.now()
-  this.counter = 0
+public zero():void{
+  this.store.dispatch(zero())
+
 }
 
 }
+
+
